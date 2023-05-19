@@ -5,19 +5,19 @@ var axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
-const expectedSecurityKey = 'YOUR_EXPECTED_SECURITY_KEY';
+const expectedKey = 'testPwd@123';
 
 app.get('/teter', (req, res) => {
     const event = req.body;
-    const receivedSecurityKey = req.headers['x-vidyard-signature'];
+    const receivedKey = req.headers['x-vidyard-signature'];
   
-    if (receivedSecurityKey === expectedSecurityKey) {
+    if (receivedKey === expectedKey) {
     
         res.send('Hello, world!');
-     
+        console.log('Received an valid Vidyard webhook');
+
      
     } else {
-      // Security key is invalid
       console.log('Received an invalid Vidyard webhook');
       res.status(401).json({ message: 'Unauthorized' });
     }
@@ -26,9 +26,9 @@ app.get('/teter', (req, res) => {
 
 app.post('/vidyard-webhook', (req, res) => {
   const event = req.body;
-  const receivedSecurityKey = req.headers['x-vidyard-signature'];
+  const receivedKey = req.headers['x-vidyard-signature'];
 
-  if (receivedSecurityKey === expectedSecurityKey) {
+  if (receivedKey === expectedKey) {
   
     var data = JSON.stringify({
       "description": "From Video",
@@ -66,14 +66,12 @@ app.post('/vidyard-webhook', (req, res) => {
    
    
   } else {
-    // Security key is invalid
     console.log('Received an invalid Vidyard webhook');
     res.status(401).json({ message: 'Unauthorized' });
   }
 });
 
-// Start the server
-const port = 3000; // Replace with your desired port number
+const port = 3000; 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
