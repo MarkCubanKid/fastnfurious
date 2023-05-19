@@ -5,15 +5,29 @@ var axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
-// Define your expected security key
 const expectedSecurityKey = 'YOUR_EXPECTED_SECURITY_KEY';
 
-// Define a route to handle the webhook notifications
+app.get('/teter', (req, res) => {
+    const event = req.body;
+    const receivedSecurityKey = req.headers['x-vidyard-signature'];
+  
+    if (receivedSecurityKey === expectedSecurityKey) {
+    
+        res.send('Hello, world!');
+     
+     
+    } else {
+      // Security key is invalid
+      console.log('Received an invalid Vidyard webhook');
+      res.status(401).json({ message: 'Unauthorized' });
+    }
+  });
+
+
 app.post('/vidyard-webhook', (req, res) => {
   const event = req.body;
   const receivedSecurityKey = req.headers['x-vidyard-signature'];
 
-  // Verify the security key
   if (receivedSecurityKey === expectedSecurityKey) {
   
     var data = JSON.stringify({
