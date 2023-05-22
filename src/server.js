@@ -25,6 +25,8 @@ app.get('/teter', (req, res) => {
 
 
 app.post('/vidyard-webhook', (req, res) => {
+    console.log(req.headers);
+    console.log(req.body);
   const event = req.body;
   const receivedKey = req.headers['x-vidyard-signature'];
 
@@ -67,7 +69,7 @@ app.post('/vidyard-webhook', (req, res) => {
    
   } else {
     console.log('Received an invalid Vidyard webhook');
-    res.status(401).json({ message: 'Unauthorized' });
+    res.status(200).json({ message: 'Unauthorized' });
   }
 });
 
