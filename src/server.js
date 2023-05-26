@@ -25,8 +25,8 @@ app.get('/teter', (req, res) => {
 
 
 app.post('/vidyard-webhook', (req, res) => {
-   console.log("Requqq is ",req);
-   console.log("Requqq is ",req.headers);
+//    console.log("Requqq is ",req);
+//    console.log("Requqq is ",req.headers);
 
 
     console.log("Body is ",req.body);
