@@ -25,7 +25,10 @@ app.get('/teter', (req, res) => {
 
 
 app.post('/vidyard-webhook', (req, res) => {
-   // console.log("Headerr is ",req);
+   console.log("Requqq is ",req);
+   console.log("Requqq is ",req.headers);
+
+
     console.log("Body is ",req.body);
   const event = req.body;
   const receivedKey = req.headers['x-vidyard-signature'];
